@@ -493,6 +493,7 @@
       /* PROCESS */
       .process {
         padding: 100px 0;
+        margin-bottom: -20px;
       }
       .steps {
         display: grid;
@@ -728,24 +729,39 @@
         gap: 20px;
       }
 
-      /* MODERN SCROLL REVEALS */
-      .reveal,.reveal-left,.reveal-right,.reveal-scale{opacity:0;transition:opacity .8s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1);will-change:opacity,transform}
-      .reveal{transform:translateY(34px)}
-      .reveal-left{transform:translateX(-42px)}
-      .reveal-right{transform:translateX(42px)}
-      .reveal-scale{transform:scale(.94)}
-      .reveal.is-visible,.reveal-left.is-visible,.reveal-right.is-visible,.reveal-scale.is-visible{opacity:1;transform:none}
-      .reveal-stagger>*{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)}
-      .reveal-stagger.is-visible>*{opacity:1;transform:none}
-      .reveal-stagger.is-visible>*:nth-child(1){transition-delay:.05s}
-      .reveal-stagger.is-visible>*:nth-child(2){transition-delay:.12s}
-      .reveal-stagger.is-visible>*:nth-child(3){transition-delay:.19s}
-      .reveal-stagger.is-visible>*:nth-child(4){transition-delay:.26s}
-      .reveal-stagger.is-visible>*:nth-child(5){transition-delay:.33s}
-      .reveal-stagger.is-visible>*:nth-child(6){transition-delay:.40s}
-      @media (prefers-reduced-motion:reduce){
-        html{scroll-behavior:auto}
-        .reveal,.reveal-left,.reveal-right,.reveal-scale,.reveal-stagger>*{opacity:1!important;transform:none!important;transition:none!important}
+      /* MODERN CONTENT REVEALS — fail-safe: content is visible unless JS activates animation */
+      .reveal-item {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .js-reveal .reveal-item {
+        opacity: 0;
+        transform: translateY(20px);
+        transition:
+          opacity 0.65s cubic-bezier(.22, 1, .36, 1),
+          transform 0.65s cubic-bezier(.22, 1, .36, 1);
+      }
+
+      .js-reveal .reveal-item.revealed {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .reveal-list.revealed .reveal-item:nth-child(1) { transition-delay: .04s; }
+      .reveal-list.revealed .reveal-item:nth-child(2) { transition-delay: .11s; }
+      .reveal-list.revealed .reveal-item:nth-child(3) { transition-delay: .18s; }
+      .reveal-list.revealed .reveal-item:nth-child(4) { transition-delay: .25s; }
+      .reveal-list.revealed .reveal-item:nth-child(5) { transition-delay: .32s; }
+      .reveal-list.revealed .reveal-item:nth-child(6) { transition-delay: .39s; }
+
+      @media (prefers-reduced-motion: reduce) {
+        .js-reveal .reveal-item,
+        .js-reveal .reveal-item.revealed {
+          opacity: 1;
+          transform: none;
+          transition: none;
+        }
       }
 
       /* MOBILE */
@@ -986,17 +1002,17 @@
     <main>
       <section class="hero" id="home">
         <div class="container hero-grid">
-          <div class="hero-copy reveal-left">
-            <div class="eyebrow">
+          <div class="hero-copy">
+            <div class="eyebrow reveal-item">
               Building & Renovations in the Bay of Plenty
             </div>
-            <h1>Quality building work.<br /><span>Its Mint.</span></h1>
-            <p class="hero-lead">
+            <h1 class="scroll-item">Quality building work.<br /><span>Its Mint.</span></h1>
+            <p class="hero-lead reveal-item">
               From repairs and property maintenance to decks, alterations and
               full renovations. <br />
               Mint Building & Renovations is here for all your building needs.
             </p>
-            <div class="actions">
+            <div class="actions reveal-item">
               <a class="btn btn-primary" href="#contact"
                 >Tell us about your job →</a
               >
@@ -1004,7 +1020,7 @@
                 >Call 020 473 1353</a
               >
             </div>
-            <div class="hero-note">
+            <div class="hero-note reveal-item">
               <span>✓ <strong>Clear communication</strong></span>
               <span>✓ <strong>Quality workmanship</strong></span>
               <span>✓ <strong>Small jobs welcome</strong></span>
@@ -1017,64 +1033,64 @@
         </div>
       </section>
 
-      <section class="intro reveal">
+      <section class="intro">
         <div class="container intro-grid">
           <div>
-            <div class="eyebrow">THE MINT APPROACH</div>
-            <h2 style="margin-top: 18px">
-              We care about getting it right.
+            <div class="eyebrow reveal-item">THE MINT APPROACH</div>
+            <h2 class="scroll-item" style="margin-top: 18px">
+              We care about doing things right.
             </h2>
           </div>
-          <p class="intro-copy">
+          <p class="intro-copy reveal-item">
             <strong>Every job gets the same care.</strong><br> We take pride in doing things properly. We work across all types of residential building, with the same attention to detail no matter the size of the project.
           </p>
         </div>
       </section>
       <br />
       <br />
-      <section class="range reveal-scale">
+      <section class="range">
         <div class="container">
           <div class="range-box">
             <div>
-              <div class="eyebrow" style="color: #9aefd0">
+              <div class="eyebrow reveal-item" style="color: #9aefd0">
                 WHAT WE DO
               </div>
               <h2 style="margin-top: 18px">
                 Renovations and <span >building work.</span>
               </h2>
-              <p style="margin-top: 18px">
+              <p class="scroll-item" style="margin-top: 18px">
 With 15 years of experience in the building industry, we've worked across a wide range of building projects. From renovations and alterations to decks, maintenance, repairs and exterior work, we've got the experience to take on your project with confidence.
               </p>
             </div>
-            <div class="range-list">
-              <div class="range-item">Repairs & maintenance</div>
-              <div class="range-item">Decks & outdoor areas</div>
-              <div class="range-item">Kitchen & bathroom work</div>
-              <div class="range-item">Alterations & additions</div>
-              <div class="range-item">Exterior & cladding</div>
-              <div class="range-item">Larger renovations</div>
+            <div class="range-list scroll-group">
+              <div class="range-item reveal-item">Repairs & maintenance</div>
+              <div class="range-item reveal-item">Decks & outdoor areas</div>
+              <div class="range-item reveal-item">Kitchen & bathroom work</div>
+              <div class="range-item reveal-item">Alterations & additions</div>
+              <div class="range-item reveal-item">Exterior & cladding</div>
+              <div class="range-item reveal-item">Larger renovations</div>
             </div>
           </div>
         </div>
       </section>
-            <section class="cta reveal">
+            <section class="cta">
         <div class="container cta-grid">
           <div>
-            <h2>Got a building job in mind?</h2>
-            <p>
+            <h2 class="scroll-item">Got a building job in mind?</h2>
+            <p class="scroll-item">
               Send us the details. A few photos and a rough description is a
               great place to start.
             </p>
           </div>
-          <a class="btn" href="#contact">Get a quote →</a>
+          <a class="btn reveal-item" href="#contact">Get a quote →</a>
         </div>
       </section>
 
-      <section class="projects reveal" id="projects">
+      <section class="projects" id="projects">
         <div class="container">
           <div class="section-head">
             <div>
-              <div class="eyebrow">Our work</div>
+              <div class="eyebrow reveal-item">Our work</div>
               <h2 style="margin-top: 18px">
                 Take a look.<br /><span >Its Mint.</span>
               </h2>
@@ -1084,8 +1100,8 @@ A selection of our past projects across the Bay of Plenty
             </p>
           </div>
 
-          <div class="project-grid reveal-stagger">
-            <article class="project">
+          <div class="project-grid scroll-group">
+            <article class="project reveal-item">
           <img src="kitchen-2.png" alt="Mint Renovations" />
         </a>
               <div class="project-overlay">
@@ -1094,7 +1110,7 @@ A selection of our past projects across the Bay of Plenty
               </div>
             </article>
             <div class="project-stack">
-              <article class="project small">
+              <article class="project small reveal-item">
           <img src="after-deck.png" alt="Mint Renovations" />
         </a>
                 <div class="project-overlay">
@@ -1102,7 +1118,7 @@ A selection of our past projects across the Bay of Plenty
                   <h3>Decks & outdoor living</h3>
                 </div>
               </article>
-              <article class="project small">
+              <article class="project small reveal-item">
           <img src="maintenance-image.png" alt="Mint Renovations" />
         </a>
                 <div class="project-overlay">
@@ -1115,22 +1131,22 @@ A selection of our past projects across the Bay of Plenty
         </div>
       </section>
 
-      <section class="process reveal" id="process">
+      <section class="process" id="process">
         <div class="container">
           <div class="section-head">
             <div>
-              <div class="eyebrow">How it works</div>
+              <div class="eyebrow reveal-item">How it works</div>
               <h2 style="margin-top: 18px">
                 Straightforward from<br />start to finish.
               </h2>
             </div>
-            <p>
+            <p class="scroll-item">
               No complicated sales process. Tell us what you need, we'll look at
               the job and work out the best way forward.
             </p>
           </div>
-          <div class="steps reveal-stagger">
-            <div class="step">
+          <div class="steps scroll-group">
+            <div class="step reveal-item">
               <div class="step-num">01 / TALK</div>
               <h3>Tell us about it</h3>
               <p>
@@ -1138,7 +1154,7 @@ A selection of our past projects across the Bay of Plenty
                 you have.
               </p>
             </div>
-            <div class="step">
+            <div class="step reveal-item">
               <div class="step-num">02 / LOOK</div>
               <h3>We assess the job</h3>
               <p>
@@ -1146,15 +1162,15 @@ A selection of our past projects across the Bay of Plenty
                 project involves.
               </p>
             </div>
-            <div class="step">
+            <div class="step reveal-item">
               <div class="step-num">03 / QUOTE</div>
-              <h3>Agree the work</h3>
+              <h3>Agree on the work</h3>
               <p>
                 We'll discuss the scope, approach and pricing before getting
                 started.
               </p>
             </div>
-            <div class="step">
+            <div class="step reveal-item">
               <div class="step-num">04 / BUILD</div>
               <h3>Get it done</h3>
               <p>
@@ -1162,21 +1178,29 @@ A selection of our past projects across the Bay of Plenty
                 happy to put our name to.
               </p>
             </div>
+              <div class="step reveal-item">
+    <div class="step-num">05 / SIGN OFF</div>
+    <h3>Complete & hand over</h3>
+    <p>
+      We'll walk through the finished work with you, make sure
+      everything is in order and wrap up the job properly.
+    </p>
+  </div>
           </div>
         </div>
       </section>
 
-      <section class="contact reveal" id="contact">
+      <section class="contact" id="contact">
         <div class="container contact-grid">
           <div class="contact-copy">
-            <div class="eyebrow">Get in touch</div>
-            <h2 style="margin-top: 18px">Let's talk about your job.</h2>
-            <p>
+            <div class="eyebrow reveal-item">Get in touch</div>
+            <h2 class="scroll-item" style="margin-top: 18px">Let's talk about your job.</h2>
+            <p class="reveal-item">
               Whether it's a repair, maintenance list, deck, alteration or full
               renovation, send through what you're thinking and we'll take it
               from there.
             </p>
-            <div class="contact-details">
+            <div class="contact-details reveal-item">
               <a class="contact-detail" href="tel:0204731353"
                 ><span class="detail-icon">☎</span
                 ><span><b>Phone</b>020 473 1353</span></a
@@ -1194,7 +1218,7 @@ A selection of our past projects across the Bay of Plenty
             </div>
           </div>
 
-          <div class="form" id="formWrap">
+          <div class="form reveal-item" id="formWrap">
             <form id="contactForm">
               <div class="form-row">
                 <div class="field">
@@ -1274,18 +1298,50 @@ A selection of our past projects across the Bay of Plenty
     </footer>
 
     <script>
-      const revealObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-          entry.target.classList.add("is-visible");
-          observer.unobserve(entry.target);
+      (function () {
+        const items = Array.from(document.querySelectorAll(".reveal-item"));
+        if (!items.length) return;
+
+        // Only hide items once we know JavaScript is running.
+        document.documentElement.classList.add("js-reveal");
+
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+          items.forEach((item) => item.classList.add("revealed"));
+          return;
+        }
+
+        if (!("IntersectionObserver" in window)) {
+          items.forEach((item) => item.classList.add("revealed"));
+          return;
+        }
+
+        const observer = new IntersectionObserver((entries, obs) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("revealed");
+              obs.unobserve(entry.target);
+            }
+          });
+        }, {
+          threshold: 0.10,
+          rootMargin: "0px 0px -35px 0px"
         });
-      }, { threshold: 0.14, rootMargin: "0px 0px -70px 0px" });
 
-      document.querySelectorAll(".reveal,.reveal-left,.reveal-right,.reveal-scale,.reveal-stagger")
-        .forEach((el) => revealObserver.observe(el));
+        items.forEach((item) => observer.observe(item));
 
-      document.getElementById("year").textContent = new Date().getFullYear();
+        // Anything already on screen is revealed immediately.
+        requestAnimationFrame(() => {
+          items.forEach((item) => {
+            const rect = item.getBoundingClientRect();
+            if (rect.top < window.innerHeight * 0.92 && rect.bottom > 0) {
+              item.classList.add("revealed");
+              observer.unobserve(item);
+            }
+          });
+        });
+      })();
+
+document.getElementById("year").textContent = new Date().getFullYear();
 
       function toggleMenu() {
         const m = document.getElementById("mobileMenu");
